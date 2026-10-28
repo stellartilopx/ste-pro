@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Product details at STE Commerce.">
+  <title>Product details — STE Commerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="products.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="supabase-config.js" defer></script>
+  <script src="supabase-client.js" defer></script>
+  <script src="marketplace.js" defer></script>
+  <script src="product-page.js" defer></script>
+</head>
+<body>
+  <div class="announcement">
+    <p>Discover more at STE Commerce — new finds added every day</p>
+  </div>
+
+  <header class="site-header">
+    <nav class="navbar product-navbar container" aria-label="Main navigation">
+      <a class="logo" href="index.html" aria-label="STE Commerce home"><span class="logo-mark">STE</span><span class="logo-name">Commerce</span></a>
+      <div class="nav-actions">
+        <a class="account-button" href="account.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c.5-3.3 3.2-5.2 7-5.2s6.5 1.9 7 5.2"></path></svg>
+          <span>Account</span>
+        </a>
+        <a class="cart-button" href="cart.html" aria-label="Shopping bag, 0 items">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 12H4L5 8Z"></path><path d="M9 9V6a3 3 0 0 1 6 0v3"></path></svg>
+          <span>Bag</span>
+          <span class="cart-count" aria-live="polite">0</span>
+        </a>
+      </div>
+    </nav>
+    <div class="category-nav" aria-label="Shop categories">
+      <a href="index.html#categories">Electronics</a>
+      <a href="index.html#categories">Phones</a>
+      <a href="index.html#categories">Computers</a>
+      <a href="index.html#categories">Fashion</a>
+      <a href="index.html#categories">Home</a>
+      <a href="index.html#categories">Beauty</a>
+      <a href="index.html#categories">Books</a>
+      <a href="index.html#categories">Accessories</a>
+    </div>
+  </header>
+
+  <main class="product-page container">
+    <a class="back-link" href="index.html#featured"><span aria-hidden="true">←</span> Back to Marketplace</a>
+    <p class="product-notice" id="product-notice" role="status" aria-live="polite">Loading product...</p>
+
+    <section class="product-details" id="product-details" aria-labelledby="product-name" hidden>
+      <div class="product-details-image">
+        <img id="product-image" src="" alt="">
+      </div>
+      <div class="product-details-copy">
+        <p class="eyebrow" id="product-category"></p>
+        <h1 id="product-name"></h1>
+        <p class="product-details-price" id="product-price"></p>
+        <p class="product-description" id="product-description"></p>
+        <p class="stock-status" id="stock-status" aria-live="polite"></p>
+        <div class="purchase-controls">
+          <div class="quantity-selector">
+            <label for="product-quantity">Quantity</label>
+            <div class="quantity-input">
+              <button type="button" id="quantity-decrease" aria-label="Decrease quantity">−</button>
+              <input id="product-quantity" type="number" min="1" value="1" inputmode="numeric">
+              <button type="button" id="quantity-increase" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+          <button class="button button-dark add-to-cart-button" id="add-to-cart" type="button">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer product-page-footer">
+    <div class="container footer-main">
+      <div class="footer-brand">
+        <a class="logo" href="index.html"><span class="logo-mark">STE</span><span class="logo-name">Commerce</span></a>
+        <p>Your marketplace for everyday essentials and the latest discoveries.</p>
+      </div>
+      <div class="footer-column"><h2>Shop</h2><a href="index.html#categories">Explore categories</a><a href="index.html#featured">Featured products</a></div>
+      <div class="footer-column"><h2>Customer care</h2><a href="mailto:hello@stecommerce.example">Contact us</a><a href="index.html#account">FAQs</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2025 STE Commerce</span><span>Everything you need, all in one place.</span></div>
+  </footer>
+  <div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sign in or create your STE Commerce customer account.">
+  <title>Your account — STE Commerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="supabase-config.js" defer></script>
+  <script src="supabase-client.js" defer></script>
+  <script src="account.js" defer></script>
+</head>
+<body class="admin-page">
+  <div class="announcement"><p>STE Commerce · Your account</p></div>
+  <header class="site-header">
+    <nav class="admin-navbar container" aria-label="Account navigation">
+      <a class="logo" href="index.html" aria-label="STE Commerce home"><span class="logo-mark">STE</span><span class="logo-name">Commerce</span></a>
+      <a class="text-link" href="products.html">Continue shopping <span aria-hidden="true">→</span></a>
+    </nav>
+  </header>
+  <main class="container admin-main">
+    <section class="admin-intro"><p class="eyebrow">Customer account</p><h1 id="account-title">Welcome back</h1><p>Sign in to your customer account or create one to get started.</p></section>
+    <p id="account-notice" class="admin-notice" role="status" aria-live="polite">Checking your session...</p>
+    <section id="account-auth" class="admin-panel admin-login" aria-labelledby="account-form-title" hidden>
+      <div class="admin-panel-heading"><div><p class="eyebrow">STE Commerce</p><h2 id="account-form-title">Sign in</h2></div></div>
+      <form id="account-form" class="admin-form account-form">
+        <label>Email address<input id="account-email" name="email" type="email" autocomplete="email" required></label>
+        <label>Password<input id="account-password" name="password" type="password" autocomplete="current-password" minlength="8" required><span class="admin-help">Use at least 8 characters.</span></label>
+        <button id="account-submit" class="button button-dark admin-submit" type="submit">Sign in</button>
+      </form>
+      <p class="account-switch"><span id="account-switch-copy">New here?</span> <button id="account-switch" class="text-link" type="button">Create an account</button></p>
+      <p class="admin-help">Store administrator? <a href="admin.html">Use the administrator sign-in</a>.</p>
+    </section>
+    <section id="account-profile" class="admin-panel" hidden>
+      <p class="eyebrow">Signed in</p><h2 id="account-email-display"></h2>
+      <p class="admin-settings-description">Your customer account is ready. Orders and checkout will appear here when those features are added.</p>
+      <div class="account-actions"><a class="admin-primary-button account-shop-link" href="products.html">Browse products</a><button id="account-logout" class="admin-secondary-button" type="button">Log out</button><a id="admin-dashboard-link" class="text-link" href="admin.html" hidden>Open admin dashboard →</a></div>
+    </section>
+  </main>
+  <footer class="admin-footer"><div class="container footer-bottom"><span>© 2025 STE Commerce</span><span><a href="index.html">Back to the marketplace</a></span></div></footer>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="STE Commerce administrator dashboard.">
+  <title>Admin Dashboard — STE Commerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="supabase-config.js" defer></script>
+  <script src="supabase-client.js" defer></script>
+  <script src="marketplace.js" defer></script>
+  <script src="admin.js" defer></script>
+</head>
+<body class="admin-page">
+  <div class="announcement">
+    <p>STE Commerce · Store administration</p>
+  </div>
+
+  <header class="site-header">
+    <nav class="admin-navbar container" aria-label="Admin navigation">
+      <a class="logo" href="index.html" aria-label="STE Commerce home">
+        <span class="logo-mark">STE</span><span class="logo-name">Commerce</span>
+      </a>
+      <a class="text-link" href="index.html">Back to marketplace <span aria-hidden="true">→</span></a>
+    </nav>
+  </header>
+
+  <main class="container admin-main">
+    <section class="admin-intro">
+      <p class="eyebrow">Store management</p>
+      <h1>Admin dashboard</h1>
+      <p>Sign in with an authorized administrator account to manage marketplace products.</p>
+    </section>
+
+    <p id="admin-notice" class="admin-notice" role="status" aria-live="polite">Checking your session...</p>
+
+    <section id="admin-login" class="admin-panel admin-login" aria-labelledby="login-heading" hidden>
+      <div class="admin-panel-heading">
+        <div>
+          <p class="eyebrow">Administrator access</p>
+          <h2 id="login-heading">Sign in</h2>
+        </div>
+      </div>
+      <form id="login-form" class="admin-form admin-login-form">
+        <label>
+          Email address
+          <input id="login-email" name="email" type="email" autocomplete="username" required>
+        </label>
+        <label>
+          Password
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button class="button button-dark admin-submit" type="submit">Sign in</button>
+      </form>
+    </section>
+
+    <section id="admin-dashboard" hidden>
+      <div class="admin-toolbar">
+        <p id="admin-identity" class="admin-identity"></p>
+        <button id="logout-button" class="admin-secondary-button" type="button">Log out</button>
+      </div>
+
+      <section class="admin-panel admin-settings-panel" aria-labelledby="currency-settings-heading">
+        <div class="admin-panel-heading">
+          <div>
+            <p class="eyebrow">Marketplace settings</p>
+            <h2 id="currency-settings-heading">Currency</h2>
+          </div>
+        </div>
+        <p class="admin-settings-description">This currency is global and applies to product prices throughout the marketplace.</p>
+        <form id="currency-settings-form" class="admin-currency-form">
+          <label for="marketplace-currency">Marketplace currency</label>
+          <select id="marketplace-currency" name="currency_code" required>
+            <option value="EUR" selected>Euro (EUR, €)</option>
+          </select>
+          <button id="save-currency-button" class="admin-primary-button" type="submit">Save currency</button>
+        </form>
+        <p id="currency-settings-message" class="admin-inline-message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="admin-panel" aria-labelledby="products-heading">
+        <div class="admin-panel-heading">
+          <div>
+            <p class="eyebrow">Catalog</p>
+            <h2 id="products-heading">Products</h2>
+          </div>
+          <button id="add-product-button" class="admin-primary-button" type="button">Add product</button>
+        </div>
+        <p id="products-message" class="admin-inline-message" role="status" aria-live="polite"></p>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="products-table-body">
+              <tr><td colspan="6">Products have not loaded yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="product-editor" class="admin-panel admin-editor" aria-labelledby="editor-heading" hidden>
+        <div class="admin-panel-heading">
+          <div>
+            <p class="eyebrow">Catalog details</p>
+            <h2 id="editor-heading">Add product</h2>
+          </div>
+          <button id="cancel-edit-button" class="admin-secondary-button" type="button">Cancel</button>
+        </div>
+        <p id="editor-message" class="admin-inline-message" role="status" aria-live="polite"></p>
+        <form id="product-form" class="admin-form admin-product-form" novalidate>
+          <label>
+            Product ID
+            <input id="product-id" name="id" type="text" required maxlength="120" pattern="[A-Za-z0-9_-]+">
+            <span class="admin-help">Unique ID used in product links. Use letters, numbers, hyphens, or underscores.</span>
+          </label>
+          <label>
+            Name
+            <input id="product-name" name="name" type="text" required maxlength="200">
+          </label>
+          <label>
+            Category
+            <select id="product-category" name="category" required>
+              <option value="">Select a category</option>
+              <option>Electronics</option>
+              <option>Phones</option>
+              <option>Computers</option>
+              <option>Fashion</option>
+              <option>Home</option>
+              <option>Beauty</option>
+              <option>Books</option>
+              <option>Accessories</option>
+            </select>
+          </label>
+          <label>
+            Price
+            <input id="product-price" name="price" type="number" min="0" step="0.01" required>
+            <span id="product-price-help" class="admin-help">Enter a numeric amount in the selected marketplace currency.</span>
+          </label>
+          <label>
+            Stock
+            <input id="product-stock" name="stock" type="number" min="0" step="1" required>
+          </label>
+          <label class="admin-field-wide">
+            Image URL
+            <input id="product-image" name="image" type="url" required>
+          </label>
+          <label class="admin-field-wide">
+            Image alt text
+            <input id="product-image-alt" name="image_alt" type="text" required maxlength="300">
+          </label>
+          <label class="admin-field-wide">
+            Description
+            <textarea id="product-description" name="description" rows="4"></textarea>
+          </label>
+          <div class="admin-form-actions admin-field-wide">
+            <button id="save-product-button" class="button button-dark admin-submit" type="submit">Save product</button>
+            <button id="cancel-form-button" class="admin-secondary-button" type="button">Cancel</button>
+          </div>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <footer class="admin-footer">
+    <div class="container footer-bottom">
+      <span>© 2025 STE Commerce</span>
+      <span>Administrator access is controlled by Supabase Auth and database policies.</span>
+    </div>
+  </footer>
+</body>
+</html>
